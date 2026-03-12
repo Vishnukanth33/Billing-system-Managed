@@ -1,0 +1,89 @@
+@Metadata.layer: #CORE
+@UI.headerInfo:{
+  typeName: 'Billing',
+  typeNamePlural: 'Billings',
+  title: { type: #STANDARD, value: 'BillingID' },
+  description: { type: #STANDARD, value: 'CustomerName' }
+}
+@UI.presentationVariant: [{
+  sortOrder: [{ by: 'BillingID', direction: #DESC }],
+  visualizations: [{ type: #AS_LINEITEM }]
+}]
+annotate view ZR_BILL_22CB060 with
+{
+  @UI.facet: [
+    {
+      id: 'BillingDetails',
+      type: #IDENTIFICATION_REFERENCE,
+      label: 'Billing Details',
+      position: 10
+    },
+    {
+      id: 'PaymentInfo',
+      type: #IDENTIFICATION_REFERENCE,
+      label: 'Payment Info',
+      position: 20
+    }
+  ]
+
+  @UI.lineItem: [
+    { position: 10, label: 'Billing UUID' },
+    { type: #FOR_ACTION, dataAction: 'ApproveBill', label: 'Approve Bill', position: 10 },
+    { type: #FOR_ACTION, dataAction: 'MarkAsPaid',  label: 'Mark As Paid', position: 20 },
+    { type: #FOR_ACTION, dataAction: 'CancelBill',  label: 'Cancel Bill',  position: 30 }
+  ]
+  @UI.identification: [{ position: 10, label: 'Billing UUID' }]
+  BillingUUID;
+
+  @UI.lineItem: [{ position: 20, label: 'Billing ID' }]
+  @UI.identification: [{ position: 20, label: 'Billing ID' }]
+  @UI.selectionField: [{ position: 10 }]
+  BillingID;
+
+  @UI.lineItem: [{ position: 30, label: 'Customer Name' }]
+  @UI.identification: [{ position: 30, label: 'Customer Name' }]
+  @UI.selectionField: [{ position: 20 }]
+  CustomerName;
+
+  @UI.lineItem: [{ position: 35, label: 'Customer Email' }]
+  @UI.identification: [{ position: 35, label: 'Customer Email' }]
+  CustomerEmail;
+
+  @UI.lineItem: [{ position: 40, label: 'Billing Date' }]
+  @UI.identification: [{ position: 40, label: 'Billing Date' }]
+  BillingDate;
+
+  @UI.lineItem: [{ position: 50, label: 'Due Date' }]
+  @UI.identification: [{ position: 50, label: 'Due Date' }]
+  DueDate;
+
+  @UI.identification: [{ position: 60, label: 'Item Description' }]
+  ItemDescription;
+
+  @UI.identification: [{ position: 70, label: 'Quantity' }]
+  Quantity;
+
+  @UI.identification: [{ position: 80, label: 'Unit Price' }]
+  UnitPrice;
+
+  @UI.identification: [{ position: 90, label: 'Total Amount' }]
+  TotalAmount;
+
+  @UI.identification: [{ position: 100, label: 'Tax Amount' }]
+  TaxAmount;
+
+  @UI.identification: [{ position: 110, label: 'Discount Amount' }]
+  DiscountAmount;
+
+  @UI.lineItem: [{ position: 60, label: 'Net Amount' }]
+  @UI.identification: [{ position: 120, label: 'Net Amount' }]
+  NetAmount;
+
+  @UI.lineItem: [{ position: 70, label: 'Payment Status' }]
+  @UI.identification: [{ position: 130, label: 'Payment Status' }]
+  @UI.selectionField: [{ position: 30 }]
+  PaymentStatus;
+
+  @UI.identification: [{ position: 140, label: 'Payment Method' }]
+  PaymentMethod;
+}

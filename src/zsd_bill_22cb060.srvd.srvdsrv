@@ -1,0 +1,4 @@
+@EndUserText.label: 'Service Definition Billing 22CB060'
+define service ZSD_BILL_22CB060 {
+  expose ZR_BILL_22CB060 as Billing;
+}

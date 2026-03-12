@@ -1,0 +1,55 @@
+managed implementation in class zbp_bill_22cb060 unique;
+strict ( 2 );
+
+define behavior for ZR_BILL_22CB060 alias Billing
+persistent table zbill_22cb060
+lock master
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  // Standard CRUD Operations
+  create;
+  update;
+  delete;
+
+  // Actions
+  action ApproveBill result [1] $self;
+  action MarkAsPaid  result [1] $self;
+  action CancelBill  result [1] $self;
+
+  // Determinations
+  determination SetBillingID     on modify { create; }
+  determination CalculateAmounts on modify { field Quantity, UnitPrice, TaxAmount, DiscountAmount; }
+
+  // Validations
+  validation ValidateCustomer on save { create; update; }
+  validation ValidateDueDate  on save { create; update; }
+
+  field ( numbering : managed, readonly ) BillingUUID;
+  field ( readonly ) CreatedBy, CreatedAt, LastChangedBy, LastChangedAt, LocalLastChangedAt;
+  field ( readonly : update ) BillingID;
+
+  mapping for zbill_22cb060
+  {
+    BillingUUID           = billing_uuid;
+    BillingID             = billing_id;
+    CustomerName          = customer_name;
+    CustomerEmail         = customer_email;
+    BillingDate           = billing_date;
+    DueDate               = due_date;
+    ItemDescription       = item_description;
+    Quantity              = quantity;
+    UnitPrice             = unit_price;
+    TotalAmount           = total_amount;
+    TaxAmount             = tax_amount;
+    DiscountAmount        = discount_amount;
+    NetAmount             = net_amount;
+    PaymentStatus         = payment_status;
+    PaymentMethod         = payment_method;
+    CreatedBy             = created_by;
+    CreatedAt             = created_at;
+    LastChangedBy         = last_changed_by;
+    LastChangedAt         = last_changed_at;
+    LocalLastChangedAt    = local_last_changed_at;
+  }
+}
